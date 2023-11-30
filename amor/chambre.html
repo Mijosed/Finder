@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Formulaire Chambre</title>
+  <meta charset="UTF-8">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  
+  <style>
+    #chambreInfo {
+      margin-top: 20px;
+    }
+
+    #chambreTable {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    #chambreTable th,
+    #chambreTable td {
+      border: 1px solid #ddd;
+      padding: 8px;
+    }
+
+    #chambreTable th {
+      background-color: #eb0d0d;
+      color: white;
+    }
+
+    #chambreTable tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="navbar">
+    <div class="navbar-title">
+        <a href="http://localhost/finder/home.html">Finder</a>
+    </div>
+    <div class="navbar-menu">
+        <a href="http://localhost/finder/amor/chambres.html">Amor</a>
+        <a href="http://localhost/finder/byzance/chambres.html">Byzance</a>
+    </div>
+</div>
+
+  <h1>Formulaire Chambre</h1>
+
+  <form id="chambreForm">
+    <label for="chambreId">Identifiant de la chambre:</label>
+    <input type="text" id="id" name="chambreId">
+    <input type="submit" value="Afficher les informations">
+  </form>
+
+  <div id="chambreInfo"></div>
+
+  <script>
+    $(document).ready(function() {
+      $('#chambreForm').submit(function(event) {
+        event.preventDefault(); // Empêche le rechargement de la page
+
+        var id = $('#id').val(); // Récupère la valeur de l'identifiant de la chambre
+
+        // Envoie la requête AJAX
+        $.ajax({
+          url: 'http://localhost/Finder/Amor/index.php/chambre/' + id,
+          type: 'GET',
+          success: function(data) {
+            // Convertit la réponse JSON en objet JavaScript
+        var chambre = JSON.parse(data)[0]; // On utilise [0] pour obtenir le premier objet du tableau
+
+// Construit le tableau HTML avec les informations de la chambre
+var tableHtml = '<table id="chambreTable">';
+tableHtml += '<tr><th>ID</th><th>Nb Couchage</th><th>Porte</th><th>Étage</th><th>ID Catégorie</th><th>Baignoire</th><th>Prix de base</th></tr>';
+tableHtml += '<tr><td>' + chambre.id + '</td><td>' + chambre.nbCouchage + '</td><td>' + chambre.porte + '</td><td>' + chambre.etage + '</td><td>' + chambre.idCategorie + '</td><td>' + chambre.baignoire + '</td><td>' + chambre.prixBase + '</td></tr>';
+tableHtml += '</table>';
+
+// Affiche le tableau dans la div chambreInfo
+$('#chambreInfo').html(tableHtml);
+},
+error: function() {
+// Gère les erreurs de la requête
+$('#chambreInfo').html('Une erreur s\'est produite lors de la récupération des informations de la chambre.');
+          }
+        });
+      });
+    });
+  </script>
+  
+</body>
+</html>

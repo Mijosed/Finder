@@ -1,0 +1,13 @@
+{
+    "name": "api",
+    "version": "0.0.1",
+    "private": true,
+    "scripts": {
+        "start": "node index.js"
+    },
+    "dependencies": {
+        "cors": "2",
+        "express": "4",
+        "pg": "^8.11.0"
+    }
+}

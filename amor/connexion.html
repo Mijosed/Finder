@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="UTF-8"/>
+  <link rel="stylesheet" href="./style.css">
+ </head>
+ <body>
+<form class="form">
+Votre Email
+<input placeholder="Entre votre Email" type="text" class="in email" required> <br>
+Mot de passe
+<input class="mdp" placeholder="Entre votre Mot de passe" type="Password" required> <br>
+<button class="submit" type="submit">Envoyer</button>
+</form>
+<script>
+var email = document.querySelector(".email")
+var mdp = document.querySelector(".mdp")
+document.querySelector (".form").addEventListener("submit", async (event) => {
+    event.preventDefault()
+    console.log(email.value)
+    const res =  fetch(`http://localhost/Finder/Amor/index.php/getuser?email=${email.value}&password=${mdp.value}`, {
+        method: "GET"
+    }).then(res => res.text()).then(data => console.log(data))
+
+    console.log(res)
+
+})
+</script>
+</body>

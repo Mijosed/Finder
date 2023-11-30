@@ -1,0 +1,42 @@
+.navbar {
+    background-color: #333;
+    overflow: hidden;
+    
+    
+}
+
+.navbar-title a {
+    float: left;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-style: italic;
+    font-weight: bold;
+    font-size:30px;
+}
+
+.navbar-menu {
+    position: absolute;
+    right: 50px;
+    top: 28px;
+   
+}
+
+.navbar-menu a {
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.navbar-menu a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+h1{
+    text-align: center;
+}
+

@@ -1,0 +1,63 @@
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<div id="app">
+  <button v-on:click="ajax(idc)">valider</button>
+  <input v-model="idc" placeholder="numéro de chambre"/>
+<p>Le message est : {{ idc }}</p>
+<template>
+    <div class="table-responsive">
+        <table class="table-hover" v-if="info">
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>nbCouchage</th>
+                    <th>porte</th>
+                    <th>etage</th>
+                    <th>idCategorie</th>
+                    <th>baignoire</th>
+                    <th>prixBase</th>                  
+                </tr>
+            </thead>
+            <tbody>              
+                <tr v-for="item in info">
+                    <td>{{ item.id }}</td>
+                    <td>{{ item.nbCouchage }}</td>
+                    <td>{{ item.porte }}</td>
+                    <td>{{ item.etage }}</td>
+                    <td>{{ item.idCategorie }}</td>
+                    <td>{{ item.baignoire }}</td>
+                    <td>{{ item.prixBase }}</td>                  
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</template>
+</div>
+<script>
+        var app =new Vue({
+          el: '#app',
+          data () {
+            return {
+              info: null,
+              idc: 0,
+              message:''    
+            }
+          },
+          methods: {
+            ajax: function (idc, event) {
+            axios({
+              method: 'get',
+              url: 'http://help.frebourg.es/api/index.php/chambre/'+idc,
+              responseType: 'json',    
+            })
+               .then(async res => { 
+                 if(res.status === 200) { 
+                       alert('Ok!');
+                       this.info=res.data;                     
+                  } else if(res.status === 400) { 
+                      let errorResponse = await res.json(); this.errors.push(errorResponse.error); }
+               })  
+            }
+            }
+        })
+        </script>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+  <title>Liste des chambres disponibles</title>
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+    
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+    
+    th {
+      background-color: #f2f2f2;
+    }
+  </style>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      $.ajax({
+        url: "http://localhost:8080/chambre",
+        type: "GET",
+        success: function(data) {
+          // On récupère les données de la réponse et on les affiche dans un tableau
+          var table = "<table><tr><th>ID</th><th>Nb Couchage</th><th>Porte</th><th>Étage</th><th>ID Catégorie</th><th>Baignoire</th><th>Prix de base</th></tr>";
+          $.each(data, function(index, chambre) {
+            table += "<tr><td>" + chambre.id + "</td><td>" + chambre.nbcouchage + "</td><td>" + chambre.porte + "</td><td>" + chambre.etage + "</td><td>" + chambre.idcategorie + "</td><td>" + chambre.baignoire + "</td><td>" + chambre.prixbase + "</td></tr>";
+          });
+          table += "</table>";
+          $("#chambreTable").html(table);
+        },
+        error: function() {
+          alert("Une erreur s'est produite lors de la récupération des données des chambres.");
+        }
+      });
+    });
+  </script>
+</head>
+<body>
+
+  <h1>Liste des chambres disponibles</h1>
+  <div id="chambreTable"></div>
+</body>
+</html>

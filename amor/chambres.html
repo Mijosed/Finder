@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <style>
+      /*title {
+        align-items: center;
+      }*/
+      body {
+    background-image: url("finder/img/vacances.jpg");
+    
+  }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+      }
+      th, td {
+        text-align: center;
+        padding: 8px;
+        border-bottom: 1px solid #ddd;
+      }
+      tr:hover {
+        background-color: #f5f5f5;
+      }
+      th {
+        background-color: #f70317;
+        color: white;
+      }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+      $(document).ready(function() {
+        $.ajax({
+          url: "http://localhost/Finder/Amor/index.php/chambre",
+          type: "GET",
+          success: function(result) {
+            var chambres = JSON.parse(result);
+            var tbody = $("#chambreTable tbody");
+            tbody.empty();
+            $.each(chambres, function(i, chambre) {
+              var row = $("<tr></tr>");
+              row.append("<td>" + chambre.id + "</td>");
+              row.append("<td>" + chambre.nbCouchage + "</td>");
+              row.append("<td>" + chambre.porte + "</td>");
+              row.append("<td>" + chambre.etage + "</td>");
+              row.append("<td>" + chambre.idCategorie + "</td>");
+              row.append("<td>" + (chambre.baignoire ? "Oui" : "Non") + "</td>");
+              row.append("<td>" + chambre.prixBase + " €</td>");
+              tbody.append(row);
+            });
+          },
+          error: function(xhr, status, error) {
+            console.log("Une erreur s'est produite lors de la récupération des chambres.");
+          }
+        });
+      });
+    </script>
+  </head>
+  <body>
+
+
+    <h1>Liste des chambres</h1>
+    <table id="chambreTable">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre de couchages</th>
+          <th>Numéro de porte</th>
+          <th>Étage</th>
+          <th>ID de catégorie</th>
+          <th>Baignoire</th>
+          <th>Prix de base</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+  </body>
+</html>

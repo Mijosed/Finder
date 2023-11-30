@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="UTF-8"/>
+  <link rel="stylesheet" href="./style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js" integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+ </head>
+ <body>   
+  <form class="form">
+    Votre Prénom
+    <input placeholder="Entre votre Prénom" type="text" class="in" id="prenom" required> <br>
+    Votre Nom
+    <input placeholder="Entre votre Nom" type="text" class="in" id="nom" required> <br>
+    Votre Email
+    <input placeholder="Entre votre Email" type="text" class="in email" id="email" required> <br>
+    Mot de passe
+    <input class="mdp" placeholder="Entre votre Mot de passe" type="Password" id="mdp" required> <br>
+    <button class="submit">S'inscrire</button>
+  </form>
+</body>
+<script>
+  $(".submit").click(function(event){
+    event.preventDefault();
+    let email=$('#email').val();
+    let nom=$('#nom').val();
+    let prenom=$('#prenom').val();
+    let mdp=$('#mdp').val();
+    $.ajax({ 
+      type: "POST",
+      dataType: 'json',
+      url: "http://localhost/Finder/Amor/index.php/user",
+      data: {
+        email: email,
+        mdp: mdp,
+        prenom: prenom,
+        nom: nom
+      }
+    });
+  });
+</script>
